@@ -1,0 +1,49 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import HomeView from '../views/index.vue'
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/screen_login',
+    component: () => import('@/views/login'),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/',
+    component: HomeView,
+    meta: {
+      title: '首页'
+    }
+  },
+  {
+    path: '/about',
+    component: () => import('@/views/AboutView'),
+    meta: {
+      title: '关于'
+    }
+  },
+  {
+    path: '/image',
+    component: () => import('@/views/image'),
+    meta: {
+      title: '压缩图片'
+    }
+  },
+  {
+    path: '/demo',
+    component: () => import('@/views/demo'),
+    meta: {
+      title: '测试'
+    }
+  }
+]
+
+const router = new VueRouter({
+  routes
+})
+
+export default router
