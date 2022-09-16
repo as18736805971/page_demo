@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { compressImg } from '@/utils/tool.js'
 export default {
   name: "play_video",
   components: {},
@@ -28,27 +29,31 @@ export default {
       console.log(file, 'file')
       this.imageUrl = URL.createObjectURL(file.raw);
     },
-    beforeAvatarUpload(file) {
-      console.log(file, 'file')
-      let _this = this
-      return new Promise((resolve, reject) => {
-        let isLt2M = file.size / 1024 / 1024 < 1 // 判定图片大小是否小于10MB
-        if(!isLt2M) {
-          reject()
-        }
-        let image = new Image(), resultBlob = '';
-        image.src = URL.createObjectURL(file);
-        image.onload = () => {
-          // 调用方法获取blob格式，方法写在下边
-          resultBlob = _this.compressUpload(image, file);
-          console.log(resultBlob, 'resultBlob')
-          this.toFormData(resultBlob)
-          resolve(resultBlob)
-        }
-        image.onerror = () => {
-          reject()
-        }
-      })
+    async beforeAvatarUpload(file) {
+      console.log(file, '压缩前')
+      let aa = await compressImg(file)
+      console.log(aa, '压缩后')
+      return false
+      // console.log(file, 'file')
+      // let _this = this
+      // return new Promise((resolve, reject) => {
+      //   let isLt2M = file.size / 1024 / 1024 < 1 // 判定图片大小是否小于10MB
+      //   if(!isLt2M) {
+      //     reject()
+      //   }
+      //   let image = new Image(), resultBlob = '';
+      //   image.src = URL.createObjectURL(file);
+      //   image.onload = () => {
+      //     // 调用方法获取blob格式，方法写在下边
+      //     resultBlob = _this.compressUpload(image, file);
+      //     console.log(resultBlob, 'resultBlob')
+      //     this.toFormData(resultBlob)
+      //     resolve(resultBlob)
+      //   }
+      //   image.onerror = () => {
+      //     reject()
+      //   }
+      // })
     },
     /* 图片压缩方法-canvas压缩 */
     compressUpload(image, file) {
@@ -60,7 +65,7 @@ export default {
       ctx.fillRect(0, 0, canvas.width, canvas.height)
       ctx.drawImage(image, 0, 0, width, height)
       // 进行最小压缩0.1
-      let compressData = canvas.toDataURL(file.type || 'image/jpeg', 0.1)
+      let compressData = canvas.toDataURL(file.type || 'image/jpeg', 0.6)
       // 压缩后调用方法进行base64转Blob，方法写在下边
       this.imageUrl = compressData
       let blobImg = this.dataURItoBlob(compressData)

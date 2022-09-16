@@ -7,7 +7,7 @@ export function isExternal(path) {
 }
 
 // 将base64转换为blob
-export function convertBase64UrlToBlob(urlData) {
+export function dataURLtoFile(urlData, imgName) {
     let arr = urlData.split(',')
     let mime = arr[0].match(/:(.*?);/)[1]
     let bstr = atob(arr[1])
@@ -16,57 +16,49 @@ export function convertBase64UrlToBlob(urlData) {
     while (n--) {
         u8arr[n] = bstr.charCodeAt(n)
     }
-    return new Blob([u8arr], {type: mime})
+    // File文件类型  Blob类型
+    // 字节 文件名 文件类型
+    return new File([u8arr], imgName, { type: mime })
 }
 
-export function compressImage(path) {
-    console.log(path)
-    //最大高度
-    const maxHeight = 500;
-    //最大宽度
-    const maxWidth = 500;
-
-    return new Promise((resolve, reject) => {
-        let img = new Image();
-        img.src = path;
-        img.onload = function () {
-            const originHeight = img.height;
-            const originWidth = img.width;
-            let compressedWidth = img.height;
-            let compressedHeight = img.width;
-            if ((originWidth > maxWidth) && (originHeight > maxHeight)) {
-                // 更宽更高，
-                if ((originHeight / originWidth) > (maxHeight / maxWidth)) {
-                    // 更加严重的高窄型，确定最大高，压缩宽度
-                    compressedHeight = maxHeight
-                    compressedWidth = maxHeight * (originWidth / originHeight)
-                } else {
-                    //更加严重的矮宽型, 确定最大宽，压缩高度
-                    compressedWidth = maxWidth
-                    compressedHeight = maxWidth * (originHeight / originWidth)
+export function compressImg(file){
+    var src;
+    var files;
+    var fileSize = parseFloat(parseInt(file['size'])/1024/1024).toFixed(2);
+    var read = new FileReader();
+    read.readAsDataURL(file);
+    return new Promise(function(resolve, reject){
+        read.onload = function (e) {
+            var img = new Image();
+            img.src = e.target.result;
+            img.onload = function(){
+                //默认按比例压缩
+                var w = this.width,
+                    h = this.height;
+                //生成canvas
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var base64;
+                // 创建属性节点
+                canvas.setAttribute("width", w);
+                canvas.setAttribute("height", h);
+                ctx.drawImage(this, 0, 0, w, h);
+                if(fileSize<1){
+                    //如果图片小于一兆 那么不执行压缩操作
+                    base64 = canvas.toDataURL(file['type'], 1);
+                }else if(fileSize>1&&fileSize<2){
+                    //如果图片大于1M并且小于2M 那么压缩0.5
+                    base64 = canvas.toDataURL(file['type'], 0.5);
+                }else{
+                    //如果图片超过2m 那么压缩0.2
+                    base64 = canvas.toDataURL(file['type'], 0.2);
                 }
-            } else if (originWidth > maxWidth && originHeight <= maxHeight) {
-                // 更宽，但比较矮，以maxWidth作为基准
-                compressedWidth = maxWidth
-                compressedHeight = maxWidth * (originHeight / originWidth)
-            } else if (originWidth <= maxWidth && originHeight > maxHeight) {
-                // 比较窄，但很高，取maxHight为基准
-                compressedHeight = maxHeight
-                compressedWidth = maxHeight * (originWidth / originHeight)
-            } else {
-                // 符合宽高限制，不做压缩
-            }
-            // 生成canvas
-            let canvas = document.createElement('canvas');
-            let context = canvas.getContext('2d');
-            canvas.height = compressedHeight;
-            canvas.width = compressedWidth;
-            context.clearRect(0, 0, compressedWidth, compressedHeight);
-            context.drawImage(img, 0, 0, compressedWidth, compressedHeight);
-            let base64 = canvas.toDataURL('image/*', 0.8);
-            let blob = convertBase64UrlToBlob(base64);
-            // 回调函数返回blob的值。也可根据自己的需求返回base64的值
-            resolve(blob)
-        }
+                // 回调函数返回file的值（将base64编码转成file）
+                files = dataURLtoFile(base64, file.name); //如果后台接收类型为base64的话这一步可以省略
+                resolve(files)
+            };
+        };
     })
 }
+
+
