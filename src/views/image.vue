@@ -31,8 +31,12 @@ export default {
     },
     async beforeAvatarUpload(file) {
       console.log(file, '压缩前')
-      let aa = await compressImg(file)
+      let aa = await compressImg(file, {
+        width: 800,
+        quality: 0.75
+      })
       console.log(aa, '压缩后')
+      this.imageUrl = aa
       return false
       // console.log(file, 'file')
       // let _this = this
