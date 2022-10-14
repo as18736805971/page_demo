@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/screen_login',
+    path: '/login',
     component: () => import('@/views/login'),
     meta: {
       title: '登录'
@@ -17,13 +17,6 @@ const routes = [
     component: HomeView,
     meta: {
       title: '首页'
-    }
-  },
-  {
-    path: '/about',
-    component: () => import('@/views/AboutView'),
-    meta: {
-      title: '关于'
     }
   },
   {
