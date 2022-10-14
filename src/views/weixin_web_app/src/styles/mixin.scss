@@ -1,0 +1,120 @@
+$mcol: #4d7efc;
+$cofff: #fff;
+$blue: #4D75FC;
+$co5c: #5C5C5C;
+$coeb: #EBEBEB;
+$cofa: #FAFAFA;
+$co85: #858585;
+$co8d: #8D8D8D;
+$coc2: #C2C2C2;
+$co66: #6677B0;
+$coed: #EDF4FF;
+$co1f: #1F1F1F;
+$cobl: #4D75FC;
+
+// 字体加粗
+@mixin fontMedium {
+    font-family: PingFangSC-Medium;
+}
+// 定位全屏
+@mixin allcover {
+	position: absolute;
+	top: 0;
+	right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+//宽高
+@mixin wh($width, $height){
+  width: $width;
+  height: $height;
+}
+
+//字体大小、行高、字体
+@mixin font($size, $line-height, $family: 'Microsoft YaHei') {
+  font: #{$size}/#{$line-height} $family;
+}
+
+//字体大小，颜色
+@mixin sc($size, $color){
+  font-size: $size;
+  color: $color;
+}
+
+// 定位上下左右居中
+@mixin ctblr {
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+// 定位上下居中
+@mixin ctb {
+	position: absolute;
+	top: 50%;
+    transform: translateY(-50%);
+}
+// 定位左右居中
+@mixin cl {
+	position: absolute;
+	left: 50%;
+    transform: translateX(-50%);
+}
+// flex 布局和 子元素 对齐方式
+@mixin fj($type: space-between,$align: center) {
+  	display: -webkit-flex;
+	display: flex;
+	justify-content: $type;
+	align-items: $align;
+}
+@mixin fx($num: 1) {
+	flex: $num;
+}
+// 文字超出省略 $l 设置行数 默认1行
+@mixin omit($l: 1) {
+    display: -webkit-box;
+    display: -moz-box;
+    -webkit-line-clamp: $l;
+    -webkit-box-orient: vertical;
+    -moz-line-clamp: $l;
+    -moz-box-orient: vertical;
+    box-orient: vertical;
+    overflow: hidden;
+}
+// 一行限定字数溢出省略 默认5个字
+@mixin omit1($w: 5em) {
+	display: inline-block;
+    width: $w;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+// 页面主体内容部分显示样式
+@mixin cont($top: 2rem, $btm: 0) {
+	position: absolute;
+    z-index: 9;
+	top: $top;
+	bottom: $btm;
+	overflow-y: auto;
+	width: 100%;
+}
+// 头部固定内容
+@mixin fixtop {
+    position: relative;
+    z-index: 10;
+}
+// 列表刷新加载提示
+.my-loadmore {
+	.mint-loadmore-top, .mint-loadmore-bottom {
+	    height: 1.6rem;
+	    line-height: 1.6rem;
+	    font-size: .7rem;
+	}
+	.mint-loadmore-top {
+		margin-top: -1.6rem;
+	}
+	.mint-loadmore-bottom {
+		margin-bottom: -1.6rem;
+	}
+}

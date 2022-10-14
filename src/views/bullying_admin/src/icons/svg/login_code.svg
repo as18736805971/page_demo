@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="design-iconfont">
+  <g fill="none" fill-rule="evenodd">
+    <rect stroke="currentColor" stroke-width="2" x="2" y="4" width="20" height="16" rx="3"/>
+    <rect fill="currentColor" x="6" y="9" width="2" height="6" rx="1"/>
+    <rect fill="currentColor" x="11" y="9" width="2" height="6" rx="1"/>
+    <rect fill="currentColor" x="16" y="9" width="2" height="6" rx="1"/>
+  </g>
+</svg>

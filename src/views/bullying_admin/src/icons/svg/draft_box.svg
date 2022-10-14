@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="design-iconfont">
+  <g fill="none" fill-rule="evenodd">
+    <path d="M6.02838946,19 L6.02838946,19 L4,19 C2.8954305,19 2,18.1045695 2,17 L2,3 C2,1.8954305 2.8954305,1 4,1 L16,1 C17.1045695,1 18,1.8954305 18,3 L18,7.04768566 L18,7.04768566" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <rect fill="currentColor" x="5" y="4" width="6" height="2" rx="1"/>
+    <rect fill="currentColor" x="5" y="9" width="6" height="2" rx="1"/>
+    <rect fill="currentColor" transform="rotate(-45 14.949747 14.949747)" x="8.94974747" y="13.9497475" width="12" height="2" rx="1"/>
+  </g>
+</svg>
