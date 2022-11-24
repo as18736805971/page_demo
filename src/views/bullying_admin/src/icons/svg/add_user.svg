@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="design-iconfont">
-  <g fill="none" fill-rule="evenodd">
-    <path d="M12,5 C12,2.790861 10.209139,1 8,1 C5.790861,1 4,2.790861 4,5 C4,7.209139 5.790861,9 8,9" stroke="#FFF" stroke-width="2" stroke-linecap="round"/>
-    <path d="M6.04979918,15 L3.5,15 C2.67157288,15 2,14.3284271 2,13.5 C2,12.6715729 2.67157288,12 3.5,12 L6.04979918,12" stroke="#FFF" stroke-width="2" stroke-linecap="round"/>
-    <rect fill="#FFF" x="8" y="11" width="8" height="2" rx="1"/>
-    <rect fill="#FFF" x="11" y="8" width="2" height="8" rx="1"/>
-  </g>
-</svg>
