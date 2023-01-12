@@ -76,4 +76,29 @@ export function compressImg(file, options){
     })
 }
 
+/**
+ * 获取当前经纬度
+ */
+export function getCoords() {
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log(position.coords.accuracy, '精准度')
+                let arr = [position.coords.longitude, position.coords.latitude]
+                resolve(arr)
+            }, function (err) {
+                let msg = '未自动定位到当前坐标点，请自行选择坐标点。'
+                if (err.code === 1) {
+                    msg = '用户拒绝浏览器获取位置信息，请自行选择坐标点。'
+                }
+                reject(msg)
+            }, {
+                // enableHighAccuracy: true,
+                // Geolocation: true
+            })
+        } else {
+            reject('你的浏览器不支持当前地理位置信息获取。')
+        }
+    })
+}
 

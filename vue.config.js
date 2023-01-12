@@ -19,5 +19,5 @@ module.exports = defineConfig({
         '@': resolve('src')      // 文件快捷路径
       }
     }
-  },
+  }
 })
