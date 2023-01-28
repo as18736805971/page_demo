@@ -1,6 +1,7 @@
 <template>
   <div :class="{'base-table': hasMinHeight}">
     <el-table
+        ref="base_table"
         row-key="id"
         :data="list"
         :height="showPage && list.length !== 0 ? height : height - 56"
@@ -18,7 +19,7 @@
       />
       <template v-for="(item, index) in theHeader">
         <el-table-column
-            v-if="item.show && item.permission !== false"
+            v-if="item.show"
             :key="index"
             show-overflow-tooltip
             :prop="item.prop"
@@ -40,7 +41,7 @@
             />
             <template v-if="item.type === 'index'">
               {{
-                scope.$index + 1 + (queryForm.page_num - 1) * queryForm.page_size
+              scope.$index + 1 + (queryForm.page_num - 1) * queryForm.page_size
               }}
             </template>
           </template>
@@ -60,6 +61,22 @@
                 :src="scope.row[item.prop]"
             />
           </template>
+          <template
+              v-else-if="item.prop && item.type === 'switch'"
+              v-slot="scope"
+          >
+            <template v-if="auth.on != -1 && auth.off != -1">
+              <el-switch
+                  v-model="scope.row[item.prop]"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  :active-value="item.on"
+                  :inactive-value="item.off"
+                  :active-text="scope.row[item.prop] === '1' ? item.active_text : item.inactive_text"
+                  @change="handleSwitch(scope.row, item, item.prop)"
+              />
+            </template>
+          </template>
         </el-table-column>
       </template>
     </el-table>
@@ -78,8 +95,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { httpRequest, decrypt } from '@/utils/auth'
-import { formatDateTime } from '@/utils/index'
+import { formatDateTime } from '@/utils'
 
 export default {
   props: {
@@ -104,6 +122,11 @@ export default {
     },
     // 允许单选
     singleChoose: {
+      type: Boolean,
+      default: false
+    },
+    // 单选时第一条默认显示选中样式
+    singleChooseStyle: {
       type: Boolean,
       default: false
     },
@@ -137,6 +160,13 @@ export default {
     apiList: {
       type: String,
       default: ''
+    },
+    // 启用开关按钮  api_on 启用  api_off 禁用
+    apiSwitch: {
+      type: Object,
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
@@ -144,6 +174,7 @@ export default {
       list: [],
       layout: 'prev, pager, next',
       total: 0,
+      auth: {},
       selectRows: [],
       queryForm: {
         page_num: 1,
@@ -151,19 +182,33 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState({
+      permission: state => state.permission.permission
+    })
+  },
   created() {
+    if (JSON.stringify(this.apiSwitch) !== '{}') {
+      this.permissionAuth()
+    }
     this.queryData()
   },
   methods: {
     formatDateTime: formatDateTime,
+    permissionAuth() {
+      this.auth.on = this.permission.indexOf(this.apiSwitch.api_on)
+      this.auth.off = this.permission.indexOf(this.apiSwitch.api_off)
+    },
+    // 多选按钮
     setSelectRows(val) {
       this.selectRows = val
       this.$emit('update:selectRowsData', this.selectRows)
     },
+    // 列表单选
     setSingleRow(val) {
       if (this.singleChoose) {
         this.selectRows = [val]
-        this.$emit('update:selectRowsData', this.selectRows)
+        this.$emit('singleRowsData', this.selectRows)
       }
     },
     handleSizeChange(val) {
@@ -173,6 +218,23 @@ export default {
     handleCurrentChange(val) {
       this.queryForm.page_num = val
       this.fetchData()
+    },
+    handleSwitch(val, item, name) {
+      let api = ''; const id = item.id
+      if (item.on === val[name]) {
+        api = this.apiSwitch.api_on
+      } else {
+        api = this.apiSwitch.api_off
+      }
+      const data = {
+        [id]: val[item.id],
+        [name]: val[name]
+      }
+      httpRequest(api, data
+      ).then((res) => {
+      }).catch(() => {
+        this.fetchData()
+      })
     },
     queryData() {
       this.queryForm.page_num = 1
@@ -184,11 +246,17 @@ export default {
         this.$set(this.queryForm, k, this.querys[k])
       }
       param = Object.assign({}, this.queryForm)
+      // console.log(param, '列表筛选参数')
       httpRequest(this.apiList, param).then((res) => {
         const data = JSON.parse(decrypt(res.data))
         this.list = data.records
-        this.total = data.total
-        // console.log(this.list, '列表')
+        if (this.singleChooseStyle && this.list.length !== 0) {
+          this.$refs.base_table.setCurrentRow(this.list[0])
+        }
+        // console.log(data, '列表数据')
+        if (data.current === 1) {
+          this.total = data.total
+        }
         this.$emit('fetchData', data)
       })
     }
@@ -197,6 +265,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.common-list-img {
+  height: 40px;
+  margin-bottom: -8px;
+}
 .pagination-container {
   width: 100%;
   display: flex;
@@ -210,5 +282,11 @@ export default {
   ::v-deep .el-pagination {
     margin-top: 0 !important;
   }
+}
+::v-deep .el-switch__label.is-active {
+  color: #14bc6c;
+}
+::v-deep .el-switch__label {
+  color: #ff4949;
 }
 </style>

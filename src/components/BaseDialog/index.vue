@@ -1,17 +1,17 @@
 <template>
   <el-dialog
-    :title="title"
-    :visible.sync="show"
-    :width="width"
-    :custom-class="className + ' ' + size"
-    :close-on-click-modal="false"
-    :destroy-on-close="true"
-    @closed="closed"
+      :title="title"
+      :visible.sync="show"
+      :width="width"
+      :custom-class="className + ' ' + size"
+      :close-on-click-modal="false"
+      :destroy-on-close="true"
+      @closed="closed"
   >
-    <div ref="contentWapper"></div>
+    <div ref="contentWapper" />
     <div v-if="footerShow" slot="footer" class="dialog-footer">
-      <el-button @click="show = false">取 消</el-button>
-      <el-button type="primary" @click="onSubmit">确 定</el-button>
+      <span class="spp-btn" @click="show = false">{{ cancel }}</span>
+      <span class="spp-btn spp-btn-primary" @click="onSubmit()">{{ save }}</span>
     </div>
   </el-dialog>
 </template>
@@ -26,11 +26,14 @@ export default {
       show: false, // 是否显示
       title: '', // 弹窗标题
       width: '50%', // 弹窗宽度
+      location: 'center', // 弹窗位置
       component: null, // 弹窗展示的内部组件
       data: {}, // 传递给内部组件的数据
       className: '', // 弹窗的扩展类名
       global: {},
-      size: ''
+      size: '',
+      save: '',
+      cancel: ''
     }
   },
   watch: {},
@@ -42,17 +45,24 @@ export default {
       return
     }
     // 动态挂载内部需要展示的组件
-    let that = this
-    this.$nextTick(function () {
-      let tmpl = Vue.extend(that.component)
-      let opt = {
+    const that = this
+    this.$nextTick(function() {
+      const tmpl = Vue.extend(that.component)
+      const opt = {
         data: that.data
       }
-      for (let k in that.global) {
+      for (const k in that.global) {
         opt[k] = that.global[k]
       }
       that.vm = new tmpl(opt).$mount(that.$refs.contentWapper)
       that.vm.callBack = that.callBack
+      if (that.location === 'right') {
+        document.getElementsByClassName('el-dialog__wrapper')[0].style.justifyContent = 'flex-end'
+        document.getElementsByClassName('el-dialog')[0].style.borderRadius = '0px'
+      } else if (that.location === 'screen') {
+        document.getElementsByClassName('el-dialog')[0].style.borderRadius = '0px'
+        document.getElementsByClassName('el-dialog__body')[0].style.padding = '0px'
+      }
     })
   },
   destroyed() {
@@ -77,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-dialog__wrapper {
   display: flex;
   align-items: center;
@@ -89,7 +99,7 @@ export default {
   flex-direction: column;
   margin: 0 !important;
   background: #ffffff !important;
-  border-radius: 20px !important;
+  border-radius: 20px;
   box-shadow: 0 2px 20px 0 rgba(0,0,0,0.06) !important;
 }
 
@@ -108,7 +118,7 @@ export default {
   }
 
   .el-icon-close:before {
-    background: url('~@/assets/close.png') no-repeat;
+    background: url('~@/assets/images/close.png') no-repeat;
     content: '';
     display: block;
     width: 24px;
@@ -121,11 +131,11 @@ export default {
   flex: 1;
   max-height: calc(100vh - 134px);
   overflow: auto;
-  padding: 0 32px !important;
+  padding: 0 32px;
 }
 
 .el-dialog__body::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
   height: 6px;
 }
 

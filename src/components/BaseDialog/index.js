@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import DialogView from './index.vue'
 export const AllDialog = {}
-const componentParse = async (component) => {
-    let type = Object.prototype.toString.call(component)
+const componentParse = async(component) => {
+    const type = Object.prototype.toString.call(component)
     let view
     switch (type) {
         case '[object Module]':
             view = component.default
             break
         case '[object Promise]':
-            let res = await component
+            const res = await component
             view = res.default
             break
         default:
@@ -24,9 +24,12 @@ class BaseDialog {
         this._resolve
         this._componentData = {}
         this._dialogWidth = '50%'
+        this._dialogLocation = 'center'
         this._dialogClassName = ''
         this._dialogTitle
         this._dialogFooter
+        this._dialogSave
+        this._dialogCancel
         this._global = {}
     }
 
@@ -47,6 +50,16 @@ class BaseDialog {
      */
     width(w) {
         this._dialogWidth = w
+        return this
+    }
+
+    /**
+     * 弹窗位置
+     * @param w
+     * @returns {Dialog}
+     */
+    location(l) {
+        this._dialogLocation = l
         return this
     }
 
@@ -75,11 +88,6 @@ class BaseDialog {
         return this
     }
 
-    size800x600() {
-        this._size = 'dialog_size_800_600'
-        return this
-    }
-
     /**
      * 不显示底部按钮
      * @returns {Dialog}
@@ -99,9 +107,9 @@ class BaseDialog {
      * @returns {Dialog}
      */
     show() {
-        let dom = document.createElement('div')
+        const dom = document.createElement('div')
         document.body.appendChild(dom)
-        let tmpl = Vue.extend(DialogView)
+        const tmpl = Vue.extend(DialogView)
         componentParse(this._component).then((view) => {
             // 弹窗标题 优先级 方法设置 > 页面设置
             let title = view.title || '弹窗标题'
@@ -115,7 +123,7 @@ class BaseDialog {
             } else if (view.hasOwnProperty('dialogFooterShow')) {
                 footer = view.dialogFooterShow
             }
-            let opt = {
+            const opt = {
                 data: {
                     show: true,
                     footerShow: footer,
@@ -123,15 +131,18 @@ class BaseDialog {
                     component: view,
                     data: this._componentData,
                     width: this._dialogWidth,
+                    location: this._dialogLocation,
                     className: this._dialogClassName,
                     global: this._global,
+                    save: this._dialogSave || '保存',
+                    cancel: this._dialogCancel || '取消',
                     size: this._size || ''
                 }
             }
-            for (let k in this._global) {
+            for (const k in this._global) {
                 opt[k] = this._global[k]
             }
-            let vm = new tmpl(opt).$mount(dom)
+            const vm = new tmpl(opt).$mount(dom)
             vm.callBack = (res, close = true) => {
                 if (close) {
                     vm && vm.close && vm.close()
@@ -139,6 +150,26 @@ class BaseDialog {
                 this._resolve && this._resolve(res)
             }
         })
+        return this
+    }
+
+    /**
+     * 取消按钮显示文字
+     * @param a
+     * @returns {Dialog}
+     */
+    cancelBtnText(a) {
+        this._dialogCancel = a
+        return this
+    }
+
+    /**
+     * 保存按钮显示文字
+     * @param e
+     * @returns {Dialog}
+     */
+    saveBtnText(e) {
+        this._dialogSave = e
         return this
     }
 

@@ -1,5 +1,10 @@
 <template>
   <div class="demo_index">
+    <div v-for="(item, index) in 24" :key="index">
+      {{ index > 9 ? `${index}:00` :  `0${index}:00` }}
+    </div>
+
+
     <div class="hea_index">
       <table class="hea_table" cellpadding="0" cellspacing="0" border="0">
         <tr class="hea_thead">
@@ -72,6 +77,7 @@ export default {
   width: 100%;
   height: 100vh;
   padding: 40px;
+  color: #4968FF;
 
   .hea_index {
     width: 500px;
