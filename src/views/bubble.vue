@@ -1,6 +1,8 @@
 <template>
   <div class="page-index">
-    <div id="bubble" style="width: 500px;height: 380px;border: 1px solid #dadada"></div>
+   <div class="block_item">
+     <div id="bubble" class="bubble"></div>
+   </div>
   </div>
 </template>
 
@@ -17,10 +19,13 @@ export default {
   },
   mounted() {
     let data = [
-      {label: '可乐', amount: 100},
-      {label: '雪碧', amount: 70},
-      {label: '土豆', amount: 30},
-      {label: '饼干', amount: 50}
+      {label: '高血压', amount: 12, type: 1},
+      {label: '高血糖', amount: 8, type: 1},
+      {label: '体温过高', amount: 6, type: 2},
+      {label: '心率不齐', amount: 6, type: 1},
+      {label: '心跳', amount: 6, type: 2},
+      {label: '运动', amount: 6, type: 1},
+      {label: '体温过低', amount: 6, type: 1}
     ]
     this.initBubbleChart(data, ['label', 'amount'], 'bubble')
   },
@@ -35,15 +40,6 @@ export default {
         temp.push(item[format[1]])
       })
       maxValue = Math.max.apply(null, temp)
-
-      // 气泡颜色数组
-      let color = [
-        '#FFB600', '#886CFF', '#0084FF',
-        '#4CB690','#58B458', '#6C6C6C',
-        '#F56161', '#FC754C','#5F5EEC'
-      ]
-      // 气泡颜色备份
-      let bakeColor = [...color]
       // 气泡数据
       let bubbleData  = []
       // 气泡基础大小
@@ -62,27 +58,32 @@ export default {
         basicSize = 30
         repulsion = 75
       }
-
       // 填充气泡数据数组bubbleData
       for (let item of data) {
-        // 确保气泡数据条数少于或等于气泡颜色数组大小时，气泡颜色不重复
-        if (!bakeColor.length) bakeColor = [...color]
-        let colorSet = new Set(bakeColor)
-        let curIndex = Math.round(Math.random()*(colorSet.size - 1))
-        let curColor = bakeColor[curIndex]
-        colorSet.delete(curColor)
-        bakeColor = [...colorSet]
         // 气泡大小设置
         let size = (item[format[1]] * basicSize * 2) / maxValue
         if (size < basicSize) size = basicSize
-
+        // 气泡颜色
+        let color = new echarts.graphic.LinearGradient(0, 0, 0, 1,
+        [
+          {offset: 0, color: 'rgba(0, 118, 160, 0.24)'},
+          {offset: 1, color: 'rgba(0, 75, 102, 0.40)'}
+        ])
+        let color1 = new echarts.graphic.LinearGradient(0, 0, 0, 1,
+        [
+          {offset: 0, color: 'rgba(255, 163, 117, 0.24)'},
+          {offset: 1, color: 'rgba(173, 58, 0, 0.40)'}
+        ])
         bubbleData.push({
           "name": item[format[0]],
           "value": item[format[1]],
           "symbolSize": size,
           "draggable": true,
           "itemStyle": {
-            "normal": {"color": curColor}
+            "normal": {
+              "color": Number(item.type) === 1 ? color : color1,
+              "borderColor": Number(item.type) === 1 ? '#3BCCFF' : '#FBAB81'
+            },
           }
         })
       }
@@ -99,9 +100,24 @@ export default {
             repulsion: repulsion,
             edgeLength: 10
           },
+          label: {
+            show: true,
+            position: 'inside',
+            color: '#fff',
+            fontSize: 12,
+            formatter: function (params) {
+              let res = params.data.name + params.data.value + '分'
+              return res
+            },
+          },
           // 是否开启鼠标缩放和平移漫游
           roam: false,
-          label: {normal: {show: true}},
+          // label: {
+          //   normal: {
+          //     show: true,
+          //     color: '#fff'
+          //   }
+          // },
           data: bubbleData
         }]
       }
@@ -112,5 +128,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-index {
+  background: #3BCCFF;
+}
 
+.block_item {
+  width: 420px;
+  height: 307px;
+  background: linear-gradient(180deg,rgba(198,236,255,0.04), rgba(122,211,255,0.10));
+  box-shadow: 0 0 6px 0 rgba(5,29,50,0.26);
+  backdrop-filter: blur(2px);
+  border: 1px solid #dadada
+}
+
+.bubble {
+  width: 100%;
+  height: 307px;
+  backdrop-filter: blur(2px);
+}
 </style>
