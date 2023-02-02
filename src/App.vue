@@ -8,7 +8,7 @@
 html,
 body {
   height: 100vh;
-  color: #fff;
+  color: #000;
   font-size: 16px;
   margin: 0;
   padding: 0;
