@@ -117,14 +117,14 @@ export default {
     color: #323338 !important;
   }
 
-  .el-icon-close:before {
-    background: url('~@/assets/images/close.png') no-repeat;
-    content: '';
-    display: block;
-    width: 24px;
-    height: 24px;
-    background-size: 24px;
-  }
+  //.el-icon-close:before {
+  //  background: url('~@/assets/images/close.png') no-repeat;
+  //  content: '';
+  //  display: block;
+  //  width: 24px;
+  //  height: 24px;
+  //  background-size: 24px;
+  //}
 }
 
 .el-dialog__body {
