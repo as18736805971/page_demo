@@ -97,7 +97,8 @@ export default {
         weekends: true, // 是否显示周末，设为false则不显示周六和周日
         weekNumbers: true, // 是否在日历中显示周次(一年中的第几周)
         select: this.handleDateSelect,
-        eventClick: this.handleEventClick // 点击日程事件，显示详情
+        eventClick: this.handleEventClick, // 点击日程事件，显示详情
+        removeEvents: this.removeEvents
       }
     }
   },
@@ -123,6 +124,9 @@ export default {
       console.log(info, '当前数据')
       console.log(info.publicId, 'id')
       console.log(info.extendedProps, '自定义参数')
+    },
+    removeEvents(data) {
+      console.log(data, '删除')
     },
     // 转换日期格式
     handleFormatDate(str) {
