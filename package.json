@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
+    "@easydarwin/easyplayer": "^5.0.7",
     "@fullcalendar/core": "^6.1.1",
     "@fullcalendar/daygrid": "^6.1.1",
     "@fullcalendar/interaction": "^6.1.1",
@@ -24,6 +25,7 @@
     "docx-preview": "^0.1.4",
     "echarts": "^5.4.1",
     "echarts-gl": "^2.0.9",
+    "echarts-liquidfill": "^3.1.0",
     "element-resize-detector": "^1.2.4",
     "element-ui": "^2.15.9",
     "flv.js": "^1.6.2",
@@ -38,6 +40,7 @@
     "vue-core-video-player": "^0.2.0",
     "vue-flv-player": "^1.0.3",
     "vue-router": "^3.5.1",
+    "vue-seamless-scroll": "^1.1.23",
     "vue-video-player": "^5.0.2",
     "vuex": "^3.6.2"
   },
@@ -49,6 +52,7 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "copy-webpack-plugin": "^5.1.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.32.7",

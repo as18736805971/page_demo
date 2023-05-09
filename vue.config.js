@@ -5,6 +5,8 @@ const resolve = (dir) => {
   return path.join(__dirname, dir)
 }
 
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 module.exports = defineConfig({
   publicPath: '/',                  // 部署应用包时的基本 URL /admin 打包后文件路径会增加/admin
   outputDir: 'dist',                // build 时生成的生产环境构建文件的目录
@@ -18,6 +20,22 @@ module.exports = defineConfig({
       alias: {
         '@': resolve('src')      // 文件快捷路径
       }
-    }
+    },
+    plugins:[
+      new CopyWebpackPlugin([
+        {
+          from: 'node_modules/@easydarwin/easyplayer/dist/component/EasyPlayer.swf',
+          to: './libs/EasyPlayer/'
+        },
+        {
+          from: 'node_modules/@easydarwin/easyplayer/dist/component/crossdomain.xml',
+          to: './libs/EasyPlayer/'
+        },
+        {
+          from: 'node_modules/@easydarwin/easyplayer/dist/component/EasyPlayer-lib.min.js',
+          to: './libs/EasyPlayer/'
+        }
+      ])
+    ]
   }
 })

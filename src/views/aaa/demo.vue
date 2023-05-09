@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <video id="cameraMonitoringVideo" class="video-js vjs-default-skin" preload="auto">
-      <source :src="video_url" type="application/x-mpegURL">
-    </video>
+  <div style="padding: 20px">
+    <div class="input_item">
+      <div class="input">
+        <div class="item" v-for="item in 10" :key="item">
+          哈哈<div class="icon">x</div>
+        </div>
+      </div>
+      <div class="btn">选择</div>
+    </div>
   </div>
 </template>
 
@@ -16,26 +21,62 @@ export default {
   name: "demo",
   data() {
     return {
-      video_url: 'https://spp_xst.zmpajx.com/41599c8255350af563224e8a5b1197a6/hlsram/live23/index.m3u8'
+
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      this.player = videojs('cameraMonitoringVideo', {
-        bigPlayButton: false,
-        textTrackDisplay: false,
-        posterImage: true,
-        errorDisplay: false,
-        controlBar: true,
-        muted: true //静音模式 、、 解决首次页面加载播放。
-      }, function () {
-        this.play() // 自动播放
-      })
-    })
+
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.input_item {
+  display: flex;
+  align-items: flex-start;
+  .input {
+    width: 300px;
+    padding: 5px 5px 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #F8644E;
+    border-radius: 4px;
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+      color: #323338;
+      font-size: 14px;
+      border: 1px solid #4968FF;
+      border-radius: 4px;
+      margin-right: 4px;
+      margin-bottom: 5px;
+      .icon {
+        width: 14px;
+        height: 14px;
+        margin-left: 4px;
+        background: #F8644E;
+        font-size: 12px;
+        color: #ffffff;
+        text-align: center;
+        line-height: 10px;
+        border-radius: 50%;
+      }
+    }
+  }
 
+  .btn {
+    margin-left: 5px;
+    width: 76px;
+    height: 36px;
+    background: #4968ff;
+    border: 1px solid #4968ff;
+    border-radius: 19px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 36px;
+  }
+}
 </style>

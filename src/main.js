@@ -10,6 +10,13 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 
+// import VideoPlayer from 'vue-video-player'
+// require('video.js/dist/video-js.css')
+// require('vue-video-player/src/custom-theme.css')
+// Vue.use(VideoPlayer)
+// const hls = require('videojs-contrib-hls')
+// Vue.use(hls)
+
 // 引用高德地图组件
 import VueAMap from '@vuemap/vue-amap'
 import '@vuemap/vue-amap/dist/style.css'
