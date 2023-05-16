@@ -17,6 +17,11 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 // const hls = require('videojs-contrib-hls')
 // Vue.use(hls)
 
+import BaiduMap from 'vue-baidu-map-v3'
+Vue.use(BaiduMap, {
+  ak: 'B6f231e9da2aad1f23cce74400698550'
+})
+
 // 引用高德地图组件
 import VueAMap from '@vuemap/vue-amap'
 import '@vuemap/vue-amap/dist/style.css'
@@ -24,7 +29,7 @@ Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
   key: '3e86388edfa660601a180ee909b40f0e',
   securityJsCode: '74b46234689598343896b6b9995457ce',
-  plugins: ['AMap.DistrictSearch', 'AMap.DistrictLayer']
+  plugins: ['AMap.DistrictSearch', 'AMap.DistrictLayer', 'AMap.PlaceSearch']
 })
 
 Vue.config.productionTip = false
