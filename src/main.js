@@ -32,6 +32,11 @@ VueAMap.initAMapApiLoader({
   plugins: ['AMap.DistrictSearch', 'AMap.DistrictLayer', 'AMap.PlaceSearch']
 })
 
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
+
+Vue.use(VXETable)
+
 Vue.config.productionTip = false
 
 new Vue({
