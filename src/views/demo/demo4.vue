@@ -2,19 +2,21 @@
   <div class='demo-app'>
     <div class='demo-app-main'>
       <FullCalendar
-          class='demo-app-calendar'
-          :options='calendarOptions'
+        class='demo-app-calendar'
+        :options='calendarOptions'
       >
         <template v-slot:eventContent='arg'>
-          <div v-if="arg.event.title">
-            {{ arg.event.title ? '[ ' + arg.event.title + ' ]' : '' }}
-          </div>
-          <div>
-            {{ arg.timeText }} {{ arg.event.extendedProps.content }}
-          </div>
-          <div v-if="arg.event.extendedProps.remarks">
-            备注：{{ arg.event.extendedProps.remarks }}
-          </div>
+         <div class="padding" >
+           <div v-if="arg.event.title">
+             {{ arg.event.title ? '[ ' + arg.event.title + ' ]' : '' }}
+           </div>
+           <div>
+             {{ arg.timeText }} {{ arg.event.extendedProps.content }}
+           </div>
+           <div v-if="arg.event.extendedProps.remarks">
+             备注：{{ arg.event.extendedProps.remarks }}
+           </div>
+         </div>
         </template>
       </FullCalendar>
     </div>
@@ -41,42 +43,54 @@ export default {
           timeGridPlugin,
           interactionPlugin
         ],
+        themeSystem: 'bootstrap5',
         headerToolbar: {
           left: 'prev,next today', // prev上 next下 today 当前
           center: 'title', // 中间日期标题
           right: 'timeGridDay,timeGridWeek,dayGridMonth'
         },
-        initialView: 'timeGridDay',
+        initialView: 'timeGridWeek',
         // 无结束日期 end 表示为 全天日程事件
         initialEvents: [{
           id: 1,
           title: '标题',
           content: '全天内容',
           remarks: '',
-          start: '2023-05-15',
+          start: '2023-05-18',
+          backgroundColor: '#a5a5d9'
         }, {
           id: 2,
-          title: '标题',
+          title: '标题1',
           content: '内容222',
           remarks: '做好笔记',
-          start: '2023-05-15 08:00:00',
-          end: '2023-05-15 10:00:00',
+          start: '2023-05-17 08:00:00',
+          end: '2023-05-17 10:00:00',
+          backgroundColor: '#0fb817'
         }, {
           id: 3,
-          title: '标题',
+          title: '标题52',
           content: '内容333',
           remarks: '',
-          start: '2023-05-15 12:00:00',
-          end: '2023-05-15 14:00:00',
+          start: '2023-05-18 11:00:00',
+          end: '2023-05-18 12:00:00',
+          backgroundColor: '#fc4141'
         }, {
           id: 4,
-          title: '标题',
+          title: '标题3',
           content: '内容444',
           remarks: '',
-          start: '2023-05-15 12:00:00',
-          end: '2023-05-15 16:00:00',
-        }
-        ], // 设置数据
+          start: '2023-05-18 14:00:00',
+          end: '2023-05-18 16:00:00',
+          backgroundColor: '#38eed9'
+        }, {
+          id: 5,
+          title: '标题4',
+          content: '内容444',
+          remarks: '',
+          start: '2023-05-18 20:00:00',
+          end: '2023-05-19 16:00:00',
+          backgroundColor: '#8a38ee'
+        }], // 设置数据
         // 左侧时间格式
         // 左侧轴时间格式
         slotLabelFormat: {
@@ -87,7 +101,7 @@ export default {
         },
         nowIndicator: true, // 是否显示指示当前时间的标记
         eventColor: '#d7d7d7', // 日程事件的背景颜色
-        eventBorderColor: '#d7d7d7', // 日程事件的边框颜色
+        eventBorderColor: '#000000', // 日程事件的边框颜色
         eventTextColor: '#000000', // 日程事件的文字颜色
         editable: true, // 是否可新增/编辑日程事件 即拖拽调整日程事件 点击新增日程事件
         selectable: true,
@@ -127,6 +141,14 @@ export default {
     },
     removeEvents(data) {
       console.log(data, '删除')
+
+      let aaa = {
+        type: 'day', // day日 week周 month月
+        time: '2023-05-19' // day
+        // 周 2023-05-19 后台自己分割周区间  或者前端传分割好的  star: 2023-05-15  end: 2023-05-21
+        // 月 2023-05  直接月
+      }
+
     },
     // 转换日期格式
     handleFormatDate(str) {
@@ -162,5 +184,15 @@ b { /* used for event dates/times */
 .demo-app-main {
   flex-grow: 1;
   padding: 3em;
+}
+
+.fc-timegrid-event .fc-event-main {
+  padding: 0 !important;
+}
+.padding {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 2px;
 }
 </style>

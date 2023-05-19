@@ -33,6 +33,9 @@ export default {
         { id: 10004, name: 'Test4', role: 'Designer', sex: 'Women', age: 24, address: 'Shanghai' }
       ]
     }
+  },
+  created() {
+    let arr = ['123456789']
   }
 }
 </script>
