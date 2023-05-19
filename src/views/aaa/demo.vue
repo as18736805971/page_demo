@@ -1,82 +1,50 @@
 <template>
-  <div style="padding: 20px">
-    <div class="input_item">
-      <div class="input">
-        <div class="item" v-for="item in 10" :key="item">
-          哈哈<div class="icon">x</div>
-        </div>
-      </div>
-      <div class="btn">选择</div>
-    </div>
-  </div>
+  <div style="padding: 20px"></div>
 </template>
 
 <script>
-import videojs from 'video.js'
-import 'videojs-contrib-hls'
-import "@videojs/http-streaming"
-import 'video.js/dist/video-js.css'
-
 export default {
   name: "demo",
   data() {
     return {
-
     }
   },
   mounted() {
-
+    let type = this.handleTimeContrast('2023-05-19 11:30:00', '2023-05-19 08:00:00', '2023-05-20 11:00:00')
+    console.log(type)
+  },
+  methods: {
+    /*
+     * 时间对比
+     * time  当前时间
+     * star  开始时间
+     * end   结束时间
+     * 未过期 1 已过期 2 跨天 3
+     */
+    handleTimeContrast(time, star, end) {
+      if (end >= time) {
+        if (this.handleDateContrast(star, end)) {
+          return 1
+        } else {
+          return 3
+        }
+      } else {
+        if (this.handleDateContrast(star, end)) {
+          return 2
+        } else {
+          return 3
+        }
+      }
+    },
+    handleDateContrast(star, end) {
+      let arr1 = star.split(' ')
+      let arr2 = end.split(' ')
+      return arr1[0] === arr2[0]
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.input_item {
-  display: flex;
-  align-items: flex-start;
-  .input {
-    width: 300px;
-    padding: 5px 5px 0 5px;
-    display: flex;
-    flex-wrap: wrap;
-    border: 1px solid #F8644E;
-    border-radius: 4px;
-    .item {
-      display: flex;
-      align-items: center;
-      padding: 0 4px;
-      color: #323338;
-      font-size: 14px;
-      border: 1px solid #4968FF;
-      border-radius: 4px;
-      margin-right: 4px;
-      margin-bottom: 5px;
-      .icon {
-        width: 14px;
-        height: 14px;
-        margin-left: 4px;
-        background: #F8644E;
-        font-size: 12px;
-        color: #ffffff;
-        text-align: center;
-        line-height: 10px;
-        border-radius: 50%;
-      }
-    }
-  }
 
-  .btn {
-    margin-left: 5px;
-    width: 76px;
-    height: 36px;
-    background: #4968ff;
-    border: 1px solid #4968ff;
-    border-radius: 19px;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: center;
-    line-height: 36px;
-  }
-}
 </style>

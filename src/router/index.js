@@ -27,6 +27,13 @@ const routes = [
     }
   },
   {
+    path: '/aaa',
+    component: () => import('@/views/aaa/demo'),
+    meta: {
+      title: '测试'
+    }
+  },
+  {
     path: '/demo',
     component: () => import('@/views/demo/demo4'),
     meta: {

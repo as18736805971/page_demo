@@ -57,7 +57,7 @@ export default {
           content: '全天内容',
           remarks: '',
           start: '2023-05-18',
-          backgroundColor: '#a5a5d9'
+          backgroundColor: ''
         }, {
           id: 2,
           title: '标题1',
@@ -65,7 +65,7 @@ export default {
           remarks: '做好笔记',
           start: '2023-05-17 08:00:00',
           end: '2023-05-17 10:00:00',
-          backgroundColor: '#0fb817'
+          backgroundColor: ''
         }, {
           id: 3,
           title: '标题52',
@@ -73,7 +73,7 @@ export default {
           remarks: '',
           start: '2023-05-18 11:00:00',
           end: '2023-05-18 12:00:00',
-          backgroundColor: '#fc4141'
+          backgroundColor: ''
         }, {
           id: 4,
           title: '标题3',
@@ -81,15 +81,23 @@ export default {
           remarks: '',
           start: '2023-05-18 14:00:00',
           end: '2023-05-18 16:00:00',
-          backgroundColor: '#38eed9'
+          backgroundColor: ''
         }, {
           id: 5,
           title: '标题4',
           content: '内容444',
           remarks: '',
-          start: '2023-05-18 20:00:00',
+          start: '2023-05-20 20:00:00',
+          end: '2023-05-21 16:00:00',
+          backgroundColor: ''
+        }, {
+          id: 6,
+          title: '标题6',
+          content: '内容444',
+          remarks: '',
+          start: '2023-05-19 14:00:00',
           end: '2023-05-19 16:00:00',
-          backgroundColor: '#8a38ee'
+          backgroundColor: ''
         }], // 设置数据
         // 左侧时间格式
         // 左侧轴时间格式
@@ -116,6 +124,17 @@ export default {
       }
     }
   },
+  created() {
+    this.calendarOptions.initialEvents.map((item) => {
+      if (item.start && item.end) {
+        let type = this.handleTimeContrast('2023-05-19 11:52:00', item.start, item.end)
+        item.backgroundColor = type === 1 ? '#0fb817' : type === 2 ? '#8a8a8a' : '#41fcf6'
+      } else {
+        // 全天日程
+        item.backgroundColor = '#fc4141'
+      }
+    })
+  },
   methods: {
     // 新增数据 即新增新的时间段数据
     handleDateSelect(data) {
@@ -141,19 +160,38 @@ export default {
     },
     removeEvents(data) {
       console.log(data, '删除')
-
-      let aaa = {
-        type: 'day', // day日 week周 month月
-        time: '2023-05-19' // day
-        // 周 2023-05-19 后台自己分割周区间  或者前端传分割好的  star: 2023-05-15  end: 2023-05-21
-        // 月 2023-05  直接月
-      }
-
     },
     // 转换日期格式
     handleFormatDate(str) {
       let arr = str.split('+')
       return arr[0].replace(/T/g, ' ')
+    },
+    /*
+     * 时间对比
+     * time  当前时间
+     * star  开始时间
+     * end   结束时间
+     * 未过期 1 已过期 2 跨天 3
+     */
+    handleTimeContrast(time, star, end) {
+      if (end >= time) {
+        if (this.handleDateContrast(star, end)) {
+          return 1
+        } else {
+          return 3
+        }
+      } else {
+        if (this.handleDateContrast(star, end)) {
+          return 2
+        } else {
+          return 3
+        }
+      }
+    },
+    handleDateContrast(star, end) {
+      let arr1 = star.split(' ')
+      let arr2 = end.split(' ')
+      return arr1[0] === arr2[0]
     }
   }
 }
@@ -184,10 +222,6 @@ b { /* used for event dates/times */
 .demo-app-main {
   flex-grow: 1;
   padding: 3em;
-}
-
-.fc-timegrid-event .fc-event-main {
-  padding: 0 !important;
 }
 .padding {
   width: 100%;
