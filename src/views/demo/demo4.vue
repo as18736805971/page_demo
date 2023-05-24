@@ -6,17 +6,20 @@
         :options='calendarOptions'
       >
         <template v-slot:eventContent='arg'>
-         <div class="padding" >
-           <div v-if="arg.event.title">
-             {{ arg.event.title ? '[ ' + arg.event.title + ' ]' : '' }}
-           </div>
-           <div>
-             {{ arg.timeText }} {{ arg.event.extendedProps.content }}
-           </div>
-           <div v-if="arg.event.extendedProps.remarks">
-             备注：{{ arg.event.extendedProps.remarks }}
-           </div>
-         </div>
+          <el-popover placement="top-start" width="210" trigger="hover">
+            <div class="tip_con">
+              <div class="tip_tit">标题：{{ arg.event.title }}</div>
+              <div class="tip_tit">创建人：{{ arg.event.extendedProps.create_name }}</div>
+              <div class="tip_tit">创建时间：{{ arg.event.extendedProps.create_time }}</div>
+              <div class="tip_tit">开始时间：{{ arg.event.start | formatTime }}</div>
+              <div class="tip_tit">结束时间：{{ arg.event.end | formatTime }}</div>
+              <div class="tip_tit">内容：{{ arg.event.extendedProps.content }}</div>
+            </div>
+            <div slot="reference" class="padding">
+              <div>{{ arg.timeText }}</div>
+              <div>{{ arg.event.title }}</div>
+            </div>
+          </el-popover>
         </template>
       </FullCalendar>
     </div>
@@ -29,6 +32,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import cnLocale from '@fullcalendar/core/locales/zh-cn'
+import moment from "moment"
 
 export default {
   components: {
@@ -49,7 +53,7 @@ export default {
           center: 'title', // 中间日期标题
           right: 'timeGridDay,timeGridWeek,dayGridMonth'
         },
-        initialView: 'timeGridWeek',
+        initialView: 'timeGridDay',
         // 无结束日期 end 表示为 全天日程事件
         initialEvents: [{
           id: 1,
@@ -60,11 +64,12 @@ export default {
           backgroundColor: ''
         }, {
           id: 2,
-          title: '标题1',
-          content: '内容222',
-          remarks: '做好笔记',
-          start: '2023-05-17 08:00:00',
-          end: '2023-05-17 10:00:00',
+          title: '每日提醒',
+          content: '今天要开始玩游戏了，记得哦！！！可不能忘了哈！！！',
+          start: '2023-05-24 08:00:00',
+          end: '2023-05-24 10:00:00',
+          create_time: '2023-05-23 10:00:00',
+          create_name: '小赵',
           backgroundColor: ''
         }, {
           id: 3,
@@ -110,7 +115,7 @@ export default {
         nowIndicator: true, // 是否显示指示当前时间的标记
         eventColor: '#d7d7d7', // 日程事件的背景颜色
         eventBorderColor: '#000000', // 日程事件的边框颜色
-        eventTextColor: '#000000', // 日程事件的文字颜色
+        eventTextColor: '#ffffff', // 日程事件的文字颜色
         editable: true, // 是否可新增/编辑日程事件 即拖拽调整日程事件 点击新增日程事件
         selectable: true,
         selectMirror: true,
@@ -122,6 +127,11 @@ export default {
         eventClick: this.handleEventClick, // 点击日程事件，显示详情
         removeEvents: this.removeEvents
       }
+    }
+  },
+  filters: {
+    formatTime (time) {
+      return moment(time).format('YYYY-MM-DD HH:mm:ss')
     }
   },
   created() {
@@ -228,5 +238,8 @@ b { /* used for event dates/times */
   height: 100%;
   padding: 5px;
   border-radius: 2px;
+}
+.tip_tit {
+  margin: 5px 0;
 }
 </style>
