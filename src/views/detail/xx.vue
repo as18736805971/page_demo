@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+
+  </div>
 </template>
 
 <script>
@@ -7,25 +9,21 @@ export default {
   name: "xx",
   data() {
     return {
-      form: {}
+      list: [],
+      rtsp: 'rtsp://admin:a12345678@192.168.1.12:554/h264/ch33/main/av_stream'
     }
   },
-  created() {
-    let aa = {
-      title: '哈哈哈',
-      desc: '来来来'
-    }
-    aa.name = '2222'
+  mounted() {
+  },
+  methods: {
 
-    this.form = aa
-
-    this.form.name = '11111'
-
-    console.log(this.form, '4444')
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.img {
+  width: 40px;
+  height: 40px;
+}
 </style>

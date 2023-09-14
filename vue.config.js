@@ -27,22 +27,6 @@ module.exports = defineConfig({
     output: {
       filename: 'static/js/[name].' + Timestamp + '.js',
       chunkFilename: 'static/js/[name].' + Timestamp + '.js'
-    },
-    plugins:[
-      new CopyWebpackPlugin([
-        {
-          from: 'node_modules/@easydarwin/easyplayer/dist/component/EasyPlayer.swf',
-          to: './libs/EasyPlayer/'
-        },
-        {
-          from: 'node_modules/@easydarwin/easyplayer/dist/component/crossdomain.xml',
-          to: './libs/EasyPlayer/'
-        },
-        {
-          from: 'node_modules/@easydarwin/easyplayer/dist/component/EasyPlayer-lib.min.js',
-          to: './libs/EasyPlayer/'
-        }
-      ])
-    ]
+    }
   }
 })
