@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>图标/12pt/菜单标签</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="应用管理" transform="translate(-108.000000, -64.000000)" stroke="currentColor">
+            <g id="编组-7" transform="translate(0.000000, 56.000000)">
+                <g id="编组-4备份" transform="translate(100.000000, 0.000000)">
+                    <g id="编组" transform="translate(8.000000, 8.000000)">
+                        <path d="M7.22905906,0.5 L10.5,3.80773352 L10.5,10 C10.5,10.4142136 10.3321068,10.7892136 10.0606602,11.0606602 C9.78921356,11.3321068 9.41421356,11.5 9,11.5 L3,11.5 C2.58578644,11.5 2.21078644,11.3321068 1.93933983,11.0606602 C1.66789322,10.7892136 1.5,10.4142136 1.5,10 L1.5,2 C1.5,1.58578644 1.66789322,1.21078644 1.93933983,0.939339828 C2.21078644,0.667893219 2.58578644,0.5 3,0.5 L7.22905906,0.5 Z" id="矩形"></path>
+                        <path d="M6.5,-0.207106781 L11.2071068,4.5 L6.5,4.5 L6.5,-0.207106781 Z" id="矩形"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
