@@ -1,0 +1,29 @@
+/* 更改项目内容全局颜色 */
+:root {
+  --theme-color: #4688FF;   // 主色
+  --subsi-color: #4688FF;   // 辅助色
+  --theme-success: #00AF5C; // 正确
+  --theme-warning: #FF853F; // 提醒
+  --theme-error: #FF4949;   // 错误提示
+  --theme-bg: #F5F6FA;      // 大背景
+  --theme-shallow: #E8F0FF;// 主色浅
+  --font-text1: #323338;    // 字体1
+  --font-text2: #5E6166;    // 字体2
+  --font-text3: #939499;    // 字体3
+  --font-text4: #C4C7CC;    // 字体4
+  --btn_outline: #E6E7EB;   // 按钮描边线
+  --parting-line: #e6ebf5;  // 分割线
+}
+
+/* 更改ElementUi全局颜色 */
+$--color-primary: #4688FF;
+$--color-success: #00AF5C;
+$--color-warning: #FF853F;
+$--color-danger: #FF4949;
+$--button-font-weight: 400;
+$--color-text-regular: #323338;
+$--border-color-light: #e6ebf5;
+$--border-color-lighter: #e6ebf5;
+$--table-border: 1px solid #e6ebf5;
+
+

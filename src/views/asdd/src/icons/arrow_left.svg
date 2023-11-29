@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>图标/12pt/箭头/朝左</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="应用管理" transform="translate(-16.000000, -64.000000)" stroke="currentColor" stroke-width="1.4">
+            <g id="编组-7" transform="translate(0.000000, 56.000000)">
+                <g id="编组-9" transform="translate(8.000000, 0.000000)">
+                    <g id="编组" transform="translate(8.000000, 8.000000)">
+                        <polyline id="路径" transform="translate(7.274951, 6.007143) scale(1, -1) rotate(-225.000000) translate(-7.274951, -6.007143) " points="10.2749512 3.0071431 10.2749512 9.0071431 4.27495119 9.0071431"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
