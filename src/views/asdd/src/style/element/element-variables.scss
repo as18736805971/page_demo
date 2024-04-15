@@ -1,7 +1,0 @@
-@import '../global.scss';
-$--font-path: 'element-ui/lib/theme-chalk/fonts';
-@import "element-ui/packages/theme-chalk/src/index";
-
-:export {
-  theme: $--color-primary;
-}
