@@ -10,13 +10,6 @@ import 'bpmn-js/dist/assets/bpmn-font/css/bpmn.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css'
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css'
 
-// import VideoPlayer from 'vue-video-player'
-// require('video.js/dist/video-js.css')
-// require('vue-video-player/src/custom-theme.css')
-// Vue.use(VideoPlayer)
-// const hls = require('videojs-contrib-hls')
-// Vue.use(hls)
-
 import BaiduMap from 'vue-baidu-map-v3'
 Vue.use(BaiduMap, {
   ak: 'B6f231e9da2aad1f23cce74400698550'
