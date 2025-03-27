@@ -12,7 +12,7 @@
           <td class="td_input length" :colspan="5">标题</td>
         </tr>
         <tr class="hea_thead">
-          <td class="td_title">发文单位</td>
+          <td class="td_title">发文单位1</td>
           <td class="td_input small" :colspan="2">单位</td>
           <td class="td_title">发文时间</td>
           <td class="td_input small" :colspan="2">2023-01-13 15:02:55</td>
