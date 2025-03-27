@@ -35,7 +35,7 @@ const routes = [
   },
   {
     path: '/demo',
-    component: () => import('@/views/demo/demo4'),
+    component: () => import('@/views/demo/demo11'),
     meta: {
       title: '测试'
     }
