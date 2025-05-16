@@ -4,7 +4,7 @@
  */
 const $ = new Env('福田e家')
 // const FTEJ = ($.isNode() ? process.env.FTEJ : $.getdata("FTEJ")) || '';
-const FTEJ = '17379924592&zhao12345678 18087259727&zhao12345678 17302929239&zhao12345678 19101558029&zhao12345678'
+const FTEJ = '18736805971&18736805971 19715535901&19715535901 15138169586&15138169586 19838588727&19838588727 18236353197&18236353197 15665083891&15665083891 17716348018&17716348018 17666130760&17666130760 15036670450&15036670450 18237072736&18237072736 18580431056&18580431056 19120110652&19120110652 13148982885&13148982885'
 let phone = ''
 let password = ''
 let token = ''
@@ -14,7 +14,7 @@ let notice = ''
 })().catch((e) => { $.log(e) }).finally(() => { $.done({}) })
 
 // 添加随机延时函数
-async function randomSleep(min = 30, max = 50) {
+async function randomSleep(min = 30, max = 60) {
   const sleepTime = Math.floor(Math.random() * (max - min + 1)) + min
   console.log(`随机等待 ${sleepTime} 秒...`)
   return new Promise(resolve => setTimeout(resolve, sleepTime * 1000))
@@ -352,7 +352,7 @@ async function main() {
 
       console.log(`===== 用户：${phone} 任务执行完成 =====`)
       console.log(`当前时间：${new Date().toLocaleString()}`)
-      await randomSleep(30, 60) // 账号之间添加随机延时
+      await randomSleep(30, 35) // 账号之间添加随机延时
     } catch (e) {
       console.log(e)
     }
